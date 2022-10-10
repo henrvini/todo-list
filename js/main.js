@@ -14,8 +14,12 @@ const Main = {
     });
   },
   Events: {
-    checkButton_click: function () {
-      alert("ok");
+    checkButton_click: function (e) {
+      const li = e.target.parentElement;
+
+      !li.classList.contains("done")
+        ? li.classList.add("done")
+        : li.classList.remove("done");
     },
   },
 };
