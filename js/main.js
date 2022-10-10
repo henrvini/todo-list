@@ -7,6 +7,7 @@ const Main = {
     this.$checkButtons = document.querySelectorAll(".check");
     this.$inputTask = document.querySelector("#inputTask");
     this.$list = document.querySelector("#list");
+    this.$removeButtons = document.querySelectorAll(".remove");
   },
   bindEvents: function () {
     const self = this;
@@ -14,8 +15,10 @@ const Main = {
     this.$checkButtons.forEach(function (button) {
       button.onclick = self.Events.checkButton_click;
     });
-
     this.$inputTask.onkeypress = self.Events.inputTask_keypress.bind(this);
+    this.$removeButtons.forEach(function (button) {
+      button.onclick = self.Events.removeButton_click;
+    });
   },
   Events: {
     checkButton_click: function (e) {
@@ -37,9 +40,20 @@ const Main = {
         <button class="remove"></button>
         </li>
         `;
+        e.target.value = "";
       }
 
-      e.target.value = "";
+      this.cacheSelectors();
+      this.bindEvents();
+    },
+    removeButton_click: function (e) {
+      let li = e.target.parentElement;
+
+      li.classList.add("removed");
+
+      setTimeout(function () {
+        li.classList.add("hidden");
+      }, 300);
     },
   },
 };
